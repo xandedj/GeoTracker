@@ -55,17 +55,17 @@ export class GeofencesService {
   }
 
   async assignVehicleToGeofence(vehicleId: string, geofenceId: string) {
-    const assigned = await this.storageService.assignVehicleToGeofence(vehicleId, geofenceId);
-    if (!assigned) {
-      throw new NotFoundException(`Vehicle or geofence not found`);
+    const result = await this.storageService.assignVehicleToGeofence(vehicleId, geofenceId);
+    if (!result) {
+      throw new NotFoundException(`Vehicle with ID ${vehicleId} or geofence with ID ${geofenceId} not found`);
     }
     return { success: true };
   }
 
   async removeVehicleFromGeofence(vehicleId: string, geofenceId: string) {
-    const removed = await this.storageService.removeVehicleFromGeofence(vehicleId, geofenceId);
-    if (!removed) {
-      throw new NotFoundException(`Relationship between vehicle and geofence not found`);
+    const result = await this.storageService.removeVehicleFromGeofence(vehicleId, geofenceId);
+    if (!result) {
+      throw new NotFoundException(`Relationship between vehicle with ID ${vehicleId} and geofence with ID ${geofenceId} not found`);
     }
     return { success: true };
   }

@@ -9,13 +9,13 @@ import { StorageModule } from './shared/storage/storage.module';
 
 @Module({
   imports: [
+    StorageModule,
     AuthModule,
     VehiclesModule,
     TrackingModule,
     AlertsModule,
     GeofencesModule,
     MaintenanceModule,
-    StorageModule,
   ],
   controllers: [],
   providers: [],

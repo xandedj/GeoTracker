@@ -1,229 +1,228 @@
 import { Injectable } from '@nestjs/common';
-import { IStorage } from '../../../storage';
-import { storage } from '../../../storage';
+import { storage, IStorage } from '../../../storage';
 
 @Injectable()
 export class StorageService implements IStorage {
-  // We delegate all methods to the existing storage implementation
+  // Pass through all storage methods to the existing storage implementation
   
   // Users
-  async getUserById(id: string) {
+  getUserById(id: string) {
     return storage.getUserById(id);
   }
-
-  async getUserByEmail(email: string) {
+  
+  getUserByEmail(email: string) {
     return storage.getUserByEmail(email);
   }
-
-  async createUser(user: any) {
+  
+  createUser(user: any) {
     return storage.createUser(user);
   }
-
-  async updateUser(id: string, data: any) {
+  
+  updateUser(id: string, data: any) {
     return storage.updateUser(id, data);
   }
-
-  async deleteUser(id: string) {
+  
+  deleteUser(id: string) {
     return storage.deleteUser(id);
   }
-
+  
   // Organizations
-  async getOrganizationById(id: string) {
+  getOrganizationById(id: string) {
     return storage.getOrganizationById(id);
   }
-
-  async getOrganizationsByAdminId(adminId: string) {
+  
+  getOrganizationsByAdminId(adminId: string) {
     return storage.getOrganizationsByAdminId(adminId);
   }
-
-  async createOrganization(org: any) {
+  
+  createOrganization(org: any) {
     return storage.createOrganization(org);
   }
-
-  async updateOrganization(id: string, data: any) {
+  
+  updateOrganization(id: string, data: any) {
     return storage.updateOrganization(id, data);
   }
-
-  async deleteOrganization(id: string) {
+  
+  deleteOrganization(id: string) {
     return storage.deleteOrganization(id);
   }
-
+  
   // Vehicles
-  async getVehicleById(id: string) {
+  getVehicleById(id: string) {
     return storage.getVehicleById(id);
   }
-
-  async getVehiclesByOwnerId(ownerId: string) {
+  
+  getVehiclesByOwnerId(ownerId: string) {
     return storage.getVehiclesByOwnerId(ownerId);
   }
-
-  async getVehiclesByOrganizationId(organizationId: string) {
+  
+  getVehiclesByOrganizationId(organizationId: string) {
     return storage.getVehiclesByOrganizationId(organizationId);
   }
-
-  async getAllVehicles() {
+  
+  getAllVehicles() {
     return storage.getAllVehicles();
   }
-
-  async createVehicle(vehicle: any) {
+  
+  createVehicle(vehicle: any) {
     return storage.createVehicle(vehicle);
   }
-
-  async updateVehicle(id: string, data: any) {
+  
+  updateVehicle(id: string, data: any) {
     return storage.updateVehicle(id, data);
   }
-
-  async deleteVehicle(id: string) {
+  
+  deleteVehicle(id: string) {
     return storage.deleteVehicle(id);
   }
-
-  async getVehicleWithLastLocation(id: string) {
+  
+  getVehicleWithLastLocation(id: string) {
     return storage.getVehicleWithLastLocation(id);
   }
-
-  async getAllVehiclesWithLastLocation() {
+  
+  getAllVehiclesWithLastLocation() {
     return storage.getAllVehiclesWithLastLocation();
   }
-
+  
   // Tracking devices
-  async getDeviceById(id: string) {
+  getDeviceById(id: string) {
     return storage.getDeviceById(id);
   }
-
-  async getDevicesByVehicleId(vehicleId: string) {
+  
+  getDevicesByVehicleId(vehicleId: string) {
     return storage.getDevicesByVehicleId(vehicleId);
   }
-
-  async createDevice(device: any) {
+  
+  createDevice(device: any) {
     return storage.createDevice(device);
   }
-
-  async updateDevice(id: string, data: any) {
+  
+  updateDevice(id: string, data: any) {
     return storage.updateDevice(id, data);
   }
-
-  async deleteDevice(id: string) {
+  
+  deleteDevice(id: string) {
     return storage.deleteDevice(id);
   }
   
   // Location history
-  async getLocationById(id: string) {
+  getLocationById(id: string) {
     return storage.getLocationById(id);
   }
-
-  async getLocationsByDeviceId(deviceId: string, limit?: number) {
+  
+  getLocationsByDeviceId(deviceId: string, limit?: number) {
     return storage.getLocationsByDeviceId(deviceId, limit);
   }
-
-  async getLocationsByVehicleId(vehicleId: string, limit?: number, startDate?: Date, endDate?: Date) {
+  
+  getLocationsByVehicleId(vehicleId: string, limit?: number, startDate?: Date, endDate?: Date) {
     return storage.getLocationsByVehicleId(vehicleId, limit, startDate, endDate);
   }
-
-  async getLastLocationByVehicleId(vehicleId: string) {
+  
+  getLastLocationByVehicleId(vehicleId: string) {
     return storage.getLastLocationByVehicleId(vehicleId);
   }
-
-  async createLocation(location: any) {
+  
+  createLocation(location: any) {
     return storage.createLocation(location);
   }
   
   // Alerts
-  async getAlertById(id: string) {
+  getAlertById(id: string) {
     return storage.getAlertById(id);
   }
-
-  async getAlertsByVehicleId(vehicleId: string) {
+  
+  getAlertsByVehicleId(vehicleId: string) {
     return storage.getAlertsByVehicleId(vehicleId);
   }
-
-  async getActiveAlerts() {
+  
+  getActiveAlerts() {
     return storage.getActiveAlerts();
   }
-
-  async getAllAlerts() {
+  
+  getAllAlerts() {
     return storage.getAllAlerts();
   }
-
-  async createAlert(alert: any) {
+  
+  createAlert(alert: any) {
     return storage.createAlert(alert);
   }
-
-  async acknowledgeAlert(id: string) {
+  
+  acknowledgeAlert(id: string) {
     return storage.acknowledgeAlert(id);
   }
-
-  async deleteAlert(id: string) {
+  
+  deleteAlert(id: string) {
     return storage.deleteAlert(id);
   }
   
   // Geofences
-  async getGeofenceById(id: string) {
+  getGeofenceById(id: string) {
     return storage.getGeofenceById(id);
   }
-
-  async getGeofencesByCreatorId(creatorId: string) {
+  
+  getGeofencesByCreatorId(creatorId: string) {
     return storage.getGeofencesByCreatorId(creatorId);
   }
-
-  async getGeofencesByOrganizationId(organizationId: string) {
+  
+  getGeofencesByOrganizationId(organizationId: string) {
     return storage.getGeofencesByOrganizationId(organizationId);
   }
-
-  async getAllGeofences() {
+  
+  getAllGeofences() {
     return storage.getAllGeofences();
   }
-
-  async createGeofence(geofence: any) {
+  
+  createGeofence(geofence: any) {
     return storage.createGeofence(geofence);
   }
-
-  async updateGeofence(id: string, data: any) {
+  
+  updateGeofence(id: string, data: any) {
     return storage.updateGeofence(id, data);
   }
-
-  async deleteGeofence(id: string) {
+  
+  deleteGeofence(id: string) {
     return storage.deleteGeofence(id);
   }
   
   // Vehicle-Geofence relationship
-  async assignVehicleToGeofence(vehicleId: string, geofenceId: string) {
+  assignVehicleToGeofence(vehicleId: string, geofenceId: string) {
     return storage.assignVehicleToGeofence(vehicleId, geofenceId);
   }
-
-  async removeVehicleFromGeofence(vehicleId: string, geofenceId: string) {
+  
+  removeVehicleFromGeofence(vehicleId: string, geofenceId: string) {
     return storage.removeVehicleFromGeofence(vehicleId, geofenceId);
   }
-
-  async getGeofencesByVehicleId(vehicleId: string) {
+  
+  getGeofencesByVehicleId(vehicleId: string) {
     return storage.getGeofencesByVehicleId(vehicleId);
   }
-
-  async getVehiclesByGeofenceId(geofenceId: string) {
+  
+  getVehiclesByGeofenceId(geofenceId: string) {
     return storage.getVehiclesByGeofenceId(geofenceId);
   }
   
   // Maintenance records
-  async getMaintenanceRecordById(id: string) {
+  getMaintenanceRecordById(id: string) {
     return storage.getMaintenanceRecordById(id);
   }
-
-  async getMaintenanceRecordsByVehicleId(vehicleId: string) {
+  
+  getMaintenanceRecordsByVehicleId(vehicleId: string) {
     return storage.getMaintenanceRecordsByVehicleId(vehicleId);
   }
-
-  async getAllMaintenanceRecords() {
+  
+  getAllMaintenanceRecords() {
     return storage.getAllMaintenanceRecords();
   }
-
-  async createMaintenanceRecord(record: any) {
+  
+  createMaintenanceRecord(record: any) {
     return storage.createMaintenanceRecord(record);
   }
-
-  async updateMaintenanceRecord(id: string, data: any) {
+  
+  updateMaintenanceRecord(id: string, data: any) {
     return storage.updateMaintenanceRecord(id, data);
   }
-
-  async deleteMaintenanceRecord(id: string) {
+  
+  deleteMaintenanceRecord(id: string) {
     return storage.deleteMaintenanceRecord(id);
   }
 }

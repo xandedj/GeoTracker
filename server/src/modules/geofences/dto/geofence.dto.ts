@@ -1,44 +1,59 @@
-import { IsNotEmpty, IsOptional, IsString, IsObject, ValidateNested, IsArray, ArrayMinSize } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { z } from 'zod';
 import { insertGeofenceSchema } from '../../../../shared/schema';
-import { Type } from 'class-transformer';
-
-class GeoPoint {
-  @ApiProperty({
-    example: 40.7128,
-    description: 'Latitude coordinate',
-  })
-  @IsNotEmpty()
-  lat: number;
-
-  @ApiProperty({
-    example: -74.006,
-    description: 'Longitude coordinate',
-  })
-  @IsNotEmpty()
-  lng: number;
-}
 
 export class CreateGeofenceDto implements z.infer<typeof insertGeofenceSchema> {
   @ApiProperty({
-    example: 'Office Zone',
-    description: 'The name of the geofence',
+    example: '123456',
+    description: 'The ID of the creator (user)',
+  })
+  @IsString()
+  @IsOptional()
+  creatorId?: string;
+
+  @ApiProperty({
+    example: '789012',
+    description: 'The ID of the organization',
+  })
+  @IsString()
+  @IsNotEmpty()
+  organizationId: string;
+
+  @ApiProperty({
+    example: 'Office Area',
+    description: 'Name of the geofence',
   })
   @IsString()
   @IsNotEmpty()
   name: string;
 
   @ApiProperty({
-    example: 'circle',
-    description: 'The type of geofence (circle, polygon)',
+    example: 'polygon',
+    description: 'Type of geofence (polygon, circle)',
   })
   @IsString()
   @IsNotEmpty()
   type: string;
 
   @ApiProperty({
-    example: 'This is the office zone',
+    example: '[{"lat": 37.7749, "lng": -122.4194}, {"lat": 37.7749, "lng": -122.4294}, {"lat": 37.7849, "lng": -122.4194}]',
+    description: 'Coordinates defining the geofence boundary',
+  })
+  @IsString()
+  @IsNotEmpty()
+  coordinates: string;
+
+  @ApiProperty({
+    example: 'Red',
+    description: 'Color of the geofence on the map',
+  })
+  @IsString()
+  @IsOptional()
+  color?: string;
+
+  @ApiProperty({
+    example: 'Restricted area',
     description: 'Description of the geofence',
   })
   @IsString()
@@ -46,73 +61,49 @@ export class CreateGeofenceDto implements z.infer<typeof insertGeofenceSchema> {
   description?: string;
 
   @ApiProperty({
-    example: { lat: 40.7128, lng: -74.006 },
-    description: 'Center point for circular geofence',
-  })
-  @IsObject()
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => GeoPoint)
-  center?: GeoPoint;
-
-  @ApiProperty({
-    example: 500,
-    description: 'Radius in meters for circular geofence',
-  })
-  @IsOptional()
-  radius?: number;
-
-  @ApiProperty({
-    example: [
-      { lat: 40.7128, lng: -74.006 },
-      { lat: 40.7129, lng: -74.007 },
-      { lat: 40.7130, lng: -74.008 },
-    ],
-    description: 'Array of points for polygon geofence',
-  })
-  @IsArray()
-  @IsOptional()
-  @ValidateNested({ each: true })
-  @ArrayMinSize(3)
-  @Type(() => GeoPoint)
-  points?: GeoPoint[];
-
-  @ApiProperty({
-    example: '123456',
-    description: 'The ID of the creator',
-  })
-  @IsString()
-  @IsNotEmpty()
-  creatorId: string;
-
-  @ApiProperty({
-    example: '123456',
-    description: 'The ID of the organization',
+    example: 'true',
+    description: 'Whether alerts should be generated for this geofence',
   })
   @IsString()
   @IsOptional()
-  organizationId?: string;
-
-  @ApiProperty({
-    example: '#FF5733',
-    description: 'Color for displaying the geofence',
-  })
-  @IsString()
-  @IsOptional()
-  color?: string;
+  alertsEnabled?: string;
 }
 
 export class UpdateGeofenceDto implements Partial<z.infer<typeof insertGeofenceSchema>> {
   @ApiProperty({
-    example: 'Office Zone',
-    description: 'The name of the geofence',
+    example: 'Office Area',
+    description: 'Name of the geofence',
   })
   @IsString()
   @IsOptional()
   name?: string;
 
   @ApiProperty({
-    example: 'This is the office zone',
+    example: 'polygon',
+    description: 'Type of geofence (polygon, circle)',
+  })
+  @IsString()
+  @IsOptional()
+  type?: string;
+
+  @ApiProperty({
+    example: '[{"lat": 37.7749, "lng": -122.4194}, {"lat": 37.7749, "lng": -122.4294}, {"lat": 37.7849, "lng": -122.4194}]',
+    description: 'Coordinates defining the geofence boundary',
+  })
+  @IsString()
+  @IsOptional()
+  coordinates?: string;
+
+  @ApiProperty({
+    example: 'Red',
+    description: 'Color of the geofence on the map',
+  })
+  @IsString()
+  @IsOptional()
+  color?: string;
+
+  @ApiProperty({
+    example: 'Restricted area',
     description: 'Description of the geofence',
   })
   @IsString()
@@ -120,44 +111,12 @@ export class UpdateGeofenceDto implements Partial<z.infer<typeof insertGeofenceS
   description?: string;
 
   @ApiProperty({
-    example: { lat: 40.7128, lng: -74.006 },
-    description: 'Center point for circular geofence',
-  })
-  @IsObject()
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => GeoPoint)
-  center?: GeoPoint;
-
-  @ApiProperty({
-    example: 500,
-    description: 'Radius in meters for circular geofence',
-  })
-  @IsOptional()
-  radius?: number;
-
-  @ApiProperty({
-    example: [
-      { lat: 40.7128, lng: -74.006 },
-      { lat: 40.7129, lng: -74.007 },
-      { lat: 40.7130, lng: -74.008 },
-    ],
-    description: 'Array of points for polygon geofence',
-  })
-  @IsArray()
-  @IsOptional()
-  @ValidateNested({ each: true })
-  @ArrayMinSize(3)
-  @Type(() => GeoPoint)
-  points?: GeoPoint[];
-
-  @ApiProperty({
-    example: '#FF5733',
-    description: 'Color for displaying the geofence',
+    example: 'true',
+    description: 'Whether alerts should be generated for this geofence',
   })
   @IsString()
   @IsOptional()
-  color?: string;
+  alertsEnabled?: string;
 }
 
 export class VehicleGeofenceDto {
