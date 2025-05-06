@@ -1,12 +1,14 @@
 import { Link } from "wouter";
-import {
-  LayoutDashboard,
-  Map,
-  Car,
-  AlertTriangle,
-  MoreHorizontal,
-} from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Home,
+  Car,
+  Map,
+  Bell,
+  Settings,
+  Calendar,
+  Shapes
+} from "lucide-react";
 
 interface MobileNavProps {
   className?: string;
@@ -51,20 +53,15 @@ export default function MobileNav({ className }: MobileNavProps) {
   return (
     <div
       className={cn(
-        "md:hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-2 z-10",
+        "fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around items-center py-2 md:hidden",
         className
       )}
     >
-      <NavItem href="/" icon={LayoutDashboard} label="Dashboard" />
-      <NavItem href="/map" icon={Map} label="Mapa" />
+      <NavItem href="/" icon={Home} label="Dashboard" />
       <NavItem href="/vehicles" icon={Car} label="Veículos" />
-      <NavItem
-        href="/alerts"
-        icon={AlertTriangle}
-        label="Alertas"
-        notification={true}
-      />
-      <NavItem href="/menu" icon={MoreHorizontal} label="Mais" />
+      <NavItem href="/map" icon={Map} label="Mapa" />
+      <NavItem href="/alerts" icon={Bell} label="Alertas" notification={true} />
+      <NavItem href="/geofences" icon={Shapes} label="Cercas" />
     </div>
   );
 }
