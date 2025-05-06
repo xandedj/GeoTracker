@@ -1,0 +1,108 @@
+erDiagram
+    USERS ||--o{ ORGANIZATIONS : belongs_to
+    USERS ||--o{ VEHICLES : owns
+    ORGANIZATIONS ||--o{ VEHICLES : owns
+    VEHICLES ||--o{ TRACKING_DEVICES : has
+    TRACKING_DEVICES ||--o{ LOCATION_HISTORY : generates
+    VEHICLES ||--o{ MAINTENANCE_RECORDS : has
+    VEHICLES ||--o{ ALERTS : generates
+    USERS ||--o{ ALERTS : receives
+    ORGANIZATIONS ||--o{ GEOFENCES : creates
+    VEHICLES }|--o{ GEOFENCES : assigned_to
+    
+    USERS {
+        uuid id PK
+        string email
+        string hashedPassword
+        string fullName
+        string phone
+        enum role
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    ORGANIZATIONS {
+        uuid id PK
+        string name
+        string documentNumber
+        string address
+        string contactEmail
+        string contactPhone
+        uuid adminId FK
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    VEHICLES {
+        uuid id PK
+        string plate
+        string model
+        string brand
+        int year
+        string color
+        uuid ownerId FK
+        uuid organizationId FK
+        string nickname
+        enum status
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    TRACKING_DEVICES {
+        uuid id PK
+        string serialNumber
+        string model
+        uuid vehicleId FK
+        enum status
+        json configuration
+        timestamp lastConnection
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    LOCATION_HISTORY {
+        uuid id PK
+        uuid deviceId FK
+        float latitude
+        float longitude
+        float speed
+        float heading
+        float accuracy
+        timestamp eventTime
+        json metadata
+    }
+    
+    ALERTS {
+        uuid id PK
+        uuid vehicleId FK
+        enum type
+        string description
+        json data
+        boolean acknowledged
+        timestamp createdAt
+        timestamp acknowledgedAt
+    }
+    
+    GEOFENCES {
+        uuid id PK
+        string name
+        uuid creatorId FK
+        uuid organizationId FK
+        json coordinates
+        enum type
+        json schedule
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    MAINTENANCE_RECORDS {
+        uuid id PK
+        uuid vehicleId FK
+        enum type
+        float odometerReading
+        timestamp serviceDate
+        string description
+        decimal cost
+        timestamp createdAt
+        timestamp updatedAt
+    }
